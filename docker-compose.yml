@@ -1,0 +1,45 @@
+version: '3.8'
+
+services:
+
+  rabbitmq:
+    image: rabbitmq:3-management
+    restart: always
+    hostname: docker-rabbitmq
+    volumes:
+      - "rabbitmq:/var/lib/rabbitmq/mnesia"
+    ports:
+      - '5672:5672'
+      - '15672:15672'
+    networks:
+      - products-network
+
+  products-producer:
+    image: products-producer
+    build:
+      context: ./products-producer
+      dockerfile: Dockerfile
+    restart: always
+    depends_on:
+      - rabbitmq
+    ports:
+      - '8080:8080'
+    networks:
+      - products-network
+
+  products-service:
+    image: products-producer
+    build:
+      context: ./products-service
+      dockerfile: Dockerfile
+    restart: always
+    depends_on:
+      - rabbitmq
+    networks:
+      - products-network
+
+volumes:
+  rabbitmq:
+
+networks:
+  products-network:
