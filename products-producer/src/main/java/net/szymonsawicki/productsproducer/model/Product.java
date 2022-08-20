@@ -17,4 +17,16 @@ public class Product {
     private Category category;
     private BigDecimal price;
 
+    public String getPriceRange() {
+        if(price.compareTo(BigDecimal.ZERO) >= 0 && price.compareTo(BigDecimal.valueOf(100)) <= 0) {
+            return "low";
+        } else if(price.compareTo(BigDecimal.ZERO) > 0 && price.compareTo(BigDecimal.valueOf(100)) > 0
+                && price.compareTo(BigDecimal.valueOf(100)) <= 0) {
+            return "medium";
+        }
+        else {
+            return "high";
+        }
+    }
+
 }
