@@ -28,13 +28,15 @@ services:
       - products-network
 
   products-service:
-    image: products-producer
+    image: products-service
     build:
       context: ./products-service
       dockerfile: Dockerfile
     restart: always
     depends_on:
       - rabbitmq
+    ports:
+      - '8081:8081'
     networks:
       - products-network
 

@@ -28,7 +28,7 @@ public class ProductProducer {
 
             log.info("============== Product to send : " + json);
             log.info("Routing key: " + routingKey);
-            rabbitTemplate.convertAndSend("x.products-topics",routingKey,json);
+            rabbitTemplate.convertAndSend("x.products",routingKey,json);
 
         } catch (Exception e) {
             throw new IllegalStateException(e);

@@ -3,9 +3,11 @@ package net.szymonsawicki.productsservice;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import net.szymonsawicki.productsservice.model.Product;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@Service
 public class ProductsService {
     private List<Product> bookProducts;
     private List<Product> productsPriceLowerThan10;
