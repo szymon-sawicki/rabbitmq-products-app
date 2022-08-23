@@ -2,6 +2,8 @@ package net.szymonsawicki.productsproducer;
 
 import lombok.RequiredArgsConstructor;
 import net.szymonsawicki.productsproducer.model.Product;
+import net.szymonsawicki.productsproducer.type.ExchangeType;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -14,9 +16,9 @@ public class ProductController {
 
     private final ProductProducer productProducer;
 
-    @PostMapping("/")
-    public String send(@RequestBody Product product) {
-        productProducer.send(product);
-        return "Product sent: " + product.toString();
+    @PostMapping("/{exchangeType}")
+    public String send(@RequestBody Product product, @PathVariable ExchangeType exchangeType) {
+        productProducer.send(product,exchangeType);
+        return "Exchange type: " + exchangeType.name() +". \n Product sent: " + product.toString();
     }
 }

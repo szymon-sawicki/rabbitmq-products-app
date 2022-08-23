@@ -1,0 +1,16 @@
+version: '3.8'
+
+services:
+
+  rabbitmq:
+    image: rabbitmq:3-management
+    restart: always
+    hostname: docker-rabbitmq
+    volumes:
+      - "rabbitmq:/var/lib/rabbitmq/mnesia"
+    ports:
+      - '5672:5672'
+      - '15672:15672'
+
+volumes:
+  rabbitmq:
