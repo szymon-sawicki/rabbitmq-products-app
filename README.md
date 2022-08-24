@@ -16,13 +16,15 @@ For the test purposes create queues:
 ``q.books``, ``q.clothing``, ``q.electronics``, ``q.expensive-clothings``, ``q.cheap-products``, ``q.warehouse``, 
 ``q.archive``
 
+In the main directory you can find postman collection with ready request for tests of each exchange type.
+
 # Exchange of type DIRECT 
 
 In this type of exchange incoming products are sent to proper queues on the basis of category
 
 In RabbitMQ GUI you need to create new exchange with name ``x.products-direct`` then in section bindings:
 
-``q.books`` -  	``BOOKS`` 
+``q.books`` - ``BOOKS`` 
 
 ``q.clothing`` - ``CLOTHING``
 
@@ -34,7 +36,7 @@ In this type of exchange incoming products are sent to proper queues on the basi
 
 In RabbitMQ GUI you need to create new exchange with name ``x.products-topic`` then in section bindings:
 
-``q.books`` -  	``BOOKS.#`` for all products of books category
+``q.books`` - ``BOOKS.#`` for all products of books category
 
 ``q.cheap-products`` - ``#.low`` for all products with price lower than 10 
 
@@ -44,5 +46,15 @@ In RabbitMQ GUI you need to create new exchange with name ``x.products-topic`` t
 
 In this case all messages are sent to all bounded queues. 
 
-In RabbitMQ GUI you need to create new exchange with name ``x.products-fanout`` and type fanout then in section bindings:
+In RabbitMQ GUI you need to create new exchange with name ``x.products-fanout``, you don't need any bindings
+
+# Exchange of type HEADER
+
+This type of exchange (like in direct) will send messages to proper category queues on the basis of the arguments declared in producer.
+
+In RabbitMQ GUI you need to create new exchange with name ``x.products-fanout`` and type headers then in bindings, section arguments:
+
+``category: BOOKS``
+``category: CLOTHING``
+``category: ELECTRONICS``
 

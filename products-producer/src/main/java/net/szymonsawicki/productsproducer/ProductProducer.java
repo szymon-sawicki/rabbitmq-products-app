@@ -5,7 +5,11 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import net.szymonsawicki.productsproducer.model.Product;
 import net.szymonsawicki.productsproducer.type.ExchangeType;
+import org.springframework.amqp.core.Message;
+import org.springframework.amqp.core.MessageProperties;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
+import org.springframework.amqp.support.converter.MessageConverter;
+import org.springframework.amqp.support.converter.SimpleMessageConverter;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
@@ -24,7 +28,7 @@ public class ProductProducer {
             switch(exchangeType) {
                 case TOPIC -> {
                     routingKey = generateTopicRoutingKey(product);
-                    exchange = "x.products"; // TODO change
+                    exchange = "x.products-topic";
                 }
                 case DIRECT -> {
                     routingKey = product.getCategory().name();
@@ -34,13 +38,25 @@ public class ProductProducer {
                     routingKey = "";
                     exchange = "x.products-fanout";
                 }
+                case HEADER -> {
+                    routingKey = "";
+                    exchange = "x.products-header";
+                }
             }
 
             var json = new ObjectMapper().writeValueAsString(product);
 
             log.info("============== Product to send : " + json);
             log.info("Routing key: " + routingKey);
-            rabbitTemplate.convertAndSend(exchange,routingKey,json);
+
+            if(exchangeType.equals(ExchangeType.HEADER)) {
+
+                Message messageToSend = createMessage(product, json);
+                rabbitTemplate.convertAndSend(exchange, routingKey, messageToSend);
+
+            } else {
+                rabbitTemplate.convertAndSend(exchange, routingKey, json);
+            }
 
         } catch (Exception e) {
             throw new IllegalStateException(e);
@@ -57,6 +73,15 @@ public class ProductProducer {
         sb.append(getPriceRange(product.getPrice()));
 
         return sb.toString();
+    }
+
+    private Message createMessage(Product product, String json) {
+
+        MessageProperties messageProperties = new MessageProperties();
+        messageProperties.setHeader("category",product.getCategory().toString());
+
+        MessageConverter converter = new SimpleMessageConverter();
+        return converter.toMessage(json, messageProperties);
     }
 
     private String getPriceRange(BigDecimal price) {

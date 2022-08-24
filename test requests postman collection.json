@@ -1,0 +1,361 @@
+{
+	"info": {
+		"_postman_id": "15977bc6-fae5-4aea-a4c7-0bde64bc4e63",
+		"name": "RabbitMQ products app",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "18183796"
+	},
+	"item": [
+		{
+			"name": "expensive book - topic exchange",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n        \"id\" : 123,\r\n        \"name\" : \"Harry Potter\",\r\n        \"category\" : \"BOOKS\",\r\n        \"price\" : \"432.34\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/product/TOPIC",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"product",
+						"TOPIC"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "book - direct exchange",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n        \"id\" : 123,\r\n        \"name\" : \"Harry Potter\",\r\n        \"category\" : \"BOOKS\",\r\n        \"price\" : \"432.34\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/product/DIRECT",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"product",
+						"DIRECT"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "book - header exchange",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n        \"id\" : 123,\r\n        \"name\" : \"Harry Potter\",\r\n        \"category\" : \"BOOKS\",\r\n        \"price\" : \"432.34\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/product/HEADER",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"product",
+						"HEADER"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "cheap book - topic exchange",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n        \"id\" : 123,\r\n        \"name\" : \"Lord of the rings\",\r\n        \"category\" : \"BOOKS\",\r\n        \"price\" : \"5.00\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/product/TOPIC",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"product",
+						"TOPIC"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "expensive clothing - topic exchange",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n        \"id\" : 123,\r\n        \"name\" : \"shirt\",\r\n        \"category\" : \"CLOTHING\",\r\n        \"price\" : \"1000.00\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/product/TOPIC",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"product",
+						"TOPIC"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "clothing - direct exchange",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n        \"id\" : 123,\r\n        \"name\" : \"shirt\",\r\n        \"category\" : \"CLOTHING\",\r\n        \"price\" : \"1000.00\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/product/DIRECT",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"product",
+						"DIRECT"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "clothing - header exchange",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n        \"id\" : 123,\r\n        \"name\" : \"shirt\",\r\n        \"category\" : \"CLOTHING\",\r\n        \"price\" : \"1000.00\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/product/HEADER",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"product",
+						"HEADER"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "clothing - fanout exchange",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n        \"id\" : 123,\r\n        \"name\" : \"shirt\",\r\n        \"category\" : \"CLOTHING\",\r\n        \"price\" : \"1000.00\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/product/FANOUT",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"product",
+						"FANOUT"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "electronics - direct exchange",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n        \"id\" : 123,\r\n        \"name\" : \"Samsung S10\",\r\n        \"category\" : \"ELECTRONICS\",\r\n        \"price\" : \"500.0\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/product/DIRECT",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"product",
+						"DIRECT"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "electronics - header exchange",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n        \"id\" : 123,\r\n        \"name\" : \"Samsung S10\",\r\n        \"category\" : \"ELECTRONICS\",\r\n        \"price\" : \"500.0\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/product/HEADER",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"product",
+						"HEADER"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "electronics - fanout exchange",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n        \"id\" : 123,\r\n        \"name\" : \"Samsung S10\",\r\n        \"category\" : \"ELECTRONICS\",\r\n        \"price\" : \"500.0\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/product/FANOUT",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"product",
+						"FANOUT"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "product summary",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n        \"id\" : 123,\r\n        \"name\" : \"shirt\",\r\n        \"category\" : \"CLOTHING\",\r\n        \"price\" : \"1000.00\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/product/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"product",
+						""
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
