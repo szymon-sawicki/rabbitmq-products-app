@@ -2,8 +2,6 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/products-producer/products-producer.iml" filepath="$PROJECT_DIR$/products-producer/products-producer.iml" />
-      <module fileurl="file://$PROJECT_DIR$/products-service/products-service.iml" filepath="$PROJECT_DIR$/products-service/products-service.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/rabbitmq-products-app.iml" filepath="$PROJECT_DIR$/.idea/rabbitmq-products-app.iml" />
     </modules>
   </component>
