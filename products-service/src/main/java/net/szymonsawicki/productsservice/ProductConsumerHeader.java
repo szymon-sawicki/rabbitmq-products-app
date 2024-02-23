@@ -13,17 +13,17 @@ import java.util.List;
 @Getter
 @Service
 @Slf4j
-public class ProductConsumerTopic {
+public class ProductConsumerHeader {
 
-    private final List<Product> productsPriceLowerThan10 = new ArrayList<>();
+    private final List<Product> booksClothings = new ArrayList<>();
     private final List<Product> clothingProductsWithPriceGreaterThan20 = new ArrayList<>();
 
-    @RabbitListener(queues = "q.cheap-products")
+    @RabbitListener(queues = "q.books-clothings")
     public void getCheapProducts(String jsonMessage) {
         try {
             var product = new ObjectMapper().readValue(jsonMessage, Product.class);
-            log.info("Cheap products - product received: " + product);
-            productsPriceLowerThan10.add(product);
+            log.info("Books or clothings queue - product received: " + product);
+            booksClothings.add(product);
         } catch (Exception e) {
             throw new IllegalStateException(e);
         }

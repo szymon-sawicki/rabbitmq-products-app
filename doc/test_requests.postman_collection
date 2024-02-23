@@ -1,9 +1,9 @@
 {
 	"info": {
-		"_postman_id": "15977bc6-fae5-4aea-a4c7-0bde64bc4e63",
+		"_postman_id": "5e78aaf3-009f-430e-92ef-1849ea405551",
 		"name": "RabbitMQ products app",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-		"_exporter_id": "18183796"
+		"_exporter_id": "24556222"
 	},
 	"item": [
 		{
@@ -59,6 +59,35 @@
 					"path": [
 						"product",
 						"DIRECT"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "expensive clothing - header exchange",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n        \"id\" : 123,\r\n        \"name\" : \"Prada Sweater\",\r\n        \"category\" : \"CLOTHING\",\r\n        \"price\" : \"432.34\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/product/HEADER",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"product",
+						"HEADER"
 					]
 				}
 			},

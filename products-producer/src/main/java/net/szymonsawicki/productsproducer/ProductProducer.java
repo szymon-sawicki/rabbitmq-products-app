@@ -13,12 +13,15 @@ import org.springframework.amqp.support.converter.SimpleMessageConverter;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
+import java.time.temporal.ValueRange;
 
 @RequiredArgsConstructor
 @Service
 @Slf4j
 public class ProductProducer {
+
     private final RabbitTemplate rabbitTemplate;
+
     public void send(Product product, ExchangeType exchangeType) {
         try {
 
@@ -27,7 +30,7 @@ public class ProductProducer {
 
             switch(exchangeType) {
                 case TOPIC -> {
-                    routingKey = generateTopicRoutingKey(product);
+                    routingKey = createRoutingKeyForTopicExchange(product);
                     exchange = "x.products-topic";
                 }
                 case DIRECT -> {
@@ -51,7 +54,7 @@ public class ProductProducer {
 
             if(exchangeType.equals(ExchangeType.HEADER)) {
 
-                Message messageToSend = createMessage(product, json);
+                Message messageToSend = createMessageForHeaderExchange(product, json);
                 rabbitTemplate.convertAndSend(exchange, routingKey, messageToSend);
 
             } else {
@@ -63,7 +66,7 @@ public class ProductProducer {
         }
     }
 
-    private String generateTopicRoutingKey(Product product) {
+    private String createRoutingKeyForTopicExchange(Product product) {
         var sb = new StringBuilder();
 
         var category = product.getCategory().toString();
@@ -75,24 +78,24 @@ public class ProductProducer {
         return sb.toString();
     }
 
-    private Message createMessage(Product product, String json) {
+    private Message createMessageForHeaderExchange(Product product, String json) {
 
         MessageProperties messageProperties = new MessageProperties();
         messageProperties.setHeader("category",product.getCategory().toString());
+        messageProperties.setHeader("price-range",getPriceRange(product.getPrice()));
 
         MessageConverter converter = new SimpleMessageConverter();
         return converter.toMessage(json, messageProperties);
     }
 
     private String getPriceRange(BigDecimal price) {
-        if(price.compareTo(BigDecimal.ZERO) >= 0 && price.compareTo(BigDecimal.valueOf(100)) <= 0) {
-            return "low";
-        } else if(price.compareTo(BigDecimal.ZERO) > 0 && price.compareTo(BigDecimal.valueOf(100)) > 0
-                && price.compareTo(BigDecimal.valueOf(100)) <= 0) {
-            return "medium";
-        }
-        else {
-            return "high";
-        }
+
+        var intPrice = price.longValue();
+
+        if(ValueRange.of(0, 100).isValidIntValue(intPrice)) return "low";
+        if(ValueRange.of(101, 200).isValidIntValue(intPrice)) return "medium";
+        if(ValueRange.of(21, 1000000).isValidIntValue(intPrice)) return "high";
+
+        return "bad value";
     }
 }
