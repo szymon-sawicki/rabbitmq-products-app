@@ -13,7 +13,7 @@ Call ``http://localhost:15672`` in your browser, then you can log in with 'guest
 
 For the test purposes create queues: 
 
-``q.books``, ``q.clothing``, ``q.electronics``, ``q.expensive-clothings``, ``q.cheap-products``, ``q.warehouse``, 
+``q.books``, ``q.clothing``, ``q.electronics``, , ``q.books-clothings``, ``q.expensive-clothings``, ``q.cheap-products``, ``q.warehouse``, 
 ``q.archive``
 
 In the main directory you can find postman collection with ready request for tests of each exchange type.
@@ -38,23 +38,22 @@ In RabbitMQ GUI you need to create new exchange with name ``x.products-topic`` t
 
 ``q.books`` - ``BOOKS.#`` for all products of books category
 
-``q.cheap-products`` - ``#.low`` for all products with price lower than 10 
+``q.cheap-products`` - ``#.low`` for all products with price lower than 100 
 
-``q.expensive-clothings`` - ``CLOTHING.high`` for all clothing products with price greater than 100
+``q.expensive-clothings`` - ``CLOTHINGS.high`` for all clothing products with price greater than 200
 
 # Exchange of type FANOUT
 
 In this case all messages are sent to all bounded queues. 
 
-In RabbitMQ GUI you need to create new exchange with name ``x.products-fanout``, you don't need any bindings
+In RabbitMQ GUI you need to create new exchange with name ``x.products-fanout``, you need to bound two queues ``q.warehouse`` and ``q.archive``
 
 # Exchange of type HEADER
 
-This type of exchange (like in direct) will send messages to proper category queues on the basis of the arguments declared in producer.
+This type of exchange (like in direct) will send messages to proper category queues on the basis of the arguments declared and sent in requests header.
 
-In RabbitMQ GUI you need to create new exchange with name ``x.products-fanout`` and type headers then in bindings, section arguments:
+In RabbitMQ GUI you need to create new exchange with name ``x.products-header`` and type headers then 2 bindings with following bindings:
 
-``category: BOOKS``
-``category: CLOTHING``
-``category: ELECTRONICS``
+![](C:\development\workspaces\rabbitmq-products-app\doc\rabbitmq_header_exchange_bindings1.PNG)
 
+![](C:\development\workspaces\rabbitmq-products-app\doc\rabbitmq_header_exchange_bindings2.PNG)
