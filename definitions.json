@@ -1,0 +1,189 @@
+{
+  "rabbit_version": "3.8",
+  "users": [],
+  "vhosts": [
+    {
+      "name": "/"
+    }
+  ],
+  "permissions": [],
+  "parameters": [],
+  "policies": [],
+  "queues": [
+    {
+      "name": "q.books",
+      "vhost": "/",
+      "durable": true,
+      "auto_delete": false,
+      "arguments": {}
+    },
+    {
+      "name": "q.clothing",
+      "vhost": "/",
+      "durable": true,
+      "auto_delete": false,
+      "arguments": {}
+    },
+    {
+      "name": "q.electronics",
+      "vhost": "/",
+      "durable": true,
+      "auto_delete": false,
+      "arguments": {}
+    },
+    {
+      "name": "q.books-clothings",
+      "vhost": "/",
+      "durable": true,
+      "auto_delete": false,
+      "arguments": {}
+    },
+    {
+      "name": "q.expensive-clothings",
+      "vhost": "/",
+      "durable": true,
+      "auto_delete": false,
+      "arguments": {}
+    },
+    {
+      "name": "q.cheap-products",
+      "vhost": "/",
+      "durable": true,
+      "auto_delete": false,
+      "arguments": {}
+    },
+    {
+      "name": "q.warehouse",
+      "vhost": "/",
+      "durable": true,
+      "auto_delete": false,
+      "arguments": {}
+    },
+    {
+      "name": "q.archive",
+      "vhost": "/",
+      "durable": true,
+      "auto_delete": false,
+      "arguments": {}
+    }
+  ],
+  "exchanges": [
+    {
+      "name": "x.products-direct",
+      "vhost": "/",
+      "type": "direct",
+      "durable": true,
+      "auto_delete": false,
+      "arguments": {}
+    },
+    {
+      "name": "x.products-fanout",
+      "vhost": "/",
+      "type": "fanout",
+      "durable": true,
+      "auto_delete": false,
+      "arguments": {}
+    },
+    {
+      "name": "x.products-header",
+      "vhost": "/",
+      "type": "headers",
+      "durable": true,
+      "auto_delete": false,
+      "arguments": {}
+    },
+    {
+      "name": "x.products-topic",
+      "vhost": "/",
+      "type": "topic",
+      "durable": true,
+      "auto_delete": false,
+      "arguments": {}
+    }
+  ],
+  "bindings": [
+    {
+      "source": "x.products-direct",
+      "vhost": "/",
+      "destination": "q.electronics",
+      "destination_type": "queue",
+      "routing_key": "ELECTRONICS",
+      "arguments": {}
+    },{
+      "source": "x.products-direct",
+      "vhost": "/",
+      "destination": "q.clothings",
+      "destination_type": "queue",
+      "routing_key": "CLOTHINGS",
+      "arguments": {}
+    },{
+      "source": "x.products-direct",
+      "vhost": "/",
+      "destination": "q.books",
+      "destination_type": "queue",
+      "routing_key": "BOOKS",
+      "arguments": {}
+    },{
+      "source": "x.products-topic",
+      "vhost": "/",
+      "destination": "q.books",
+      "destination_type": "queue",
+      "routing_key": "BOOKS.#",
+      "arguments": {}
+    },
+    {
+      "source": "x.products-topic",
+      "vhost": "/",
+      "destination": "q.cheap-products",
+      "destination_type": "queue",
+      "routing_key": "#.low",
+      "arguments": {}
+    },
+    {
+      "source": "x.products-topic",
+      "vhost": "/",
+      "destination": "q.expensive-clothings",
+      "destination_type": "queue",
+      "routing_key": "CLOTHINGS.high",
+      "arguments": {}
+    },
+    {
+      "source": "x.products-fanout",
+      "vhost": "/",
+      "destination": "q.warehouse",
+      "destination_type": "queue",
+      "routing_key": "",
+      "arguments": {}
+    },
+    {
+      "source": "x.products-fanout",
+      "vhost": "/",
+      "destination": "q.archive",
+      "destination_type": "queue",
+      "routing_key": "",
+      "arguments": {}
+    },
+    {
+      "source": "x.products-header",
+      "vhost": "/",
+      "destination": "q.expensive-clothings",
+      "destination_type": "queue",
+      "arguments": {
+        "x-match": "all",
+        "category": "CLOTHINGS",
+        "price-range": "high"
+      }
+    },
+    {
+      "source": "x.products-header",
+      "vhost": "/",
+      "destination": "q.books-clothings",
+      "destination_type": "queue",
+      "arguments": {
+        "x-match": "any",
+        "category": "CLOTHINGS",
+        "category": "BOOKS"
+      }
+    }
+  ]
+}
