@@ -3,9 +3,8 @@ version: '3.8'
 services:
 
   rabbitmq:
-    build:
-      context: ./
-      dockerfile: Dockerfile
+    image: rabbitmq:3-management
+    restart: always
     hostname: docker-rabbitmq
     volumes:
       - "rabbitmq:/var/lib/rabbitmq/mnesia"
