@@ -17,7 +17,7 @@ public class RabbitMQConfig {
 
     @Bean
     Queue qClothing() {
-        return new Queue("q.clothing", true);
+        return QueueBuilder.durable("q.clothing").build();
     }
 
     @Bean
@@ -41,16 +41,17 @@ public class RabbitMQConfig {
     }
 
     @Bean
+    Queue qArchive() {
+        return new Queue("q.archive", true);
+    }
+
+    // Queue containing arguments for dead letter queue
+    @Bean
     Queue qWarehouse() {
         return QueueBuilder.durable("q.warehouse")
                 .withArgument("x-dead-letter-exchange","x.warehouse-failures")
                 .withArgument("x-dead-letter-routing-key","fall-back")
                 .build();
-    }
-
-    @Bean
-    Queue qArchive() {
-        return new Queue("q.archive", true);
     }
 
     @Bean

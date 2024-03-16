@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 import net.szymonsawicki.productsservice.model.Product;
+import org.springframework.amqp.AmqpRejectAndDontRequeueException;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.stereotype.Service;
 
@@ -22,10 +23,14 @@ public class ProductConsumerFanout {
     public void getWarehouseProducts(String jsonMessage) {
         try {
             var product = new ObjectMapper().readValue(jsonMessage, Product.class);
+
+            if(product.getName().contains("bad product")) throw new RuntimeException("Intentionally rejecting message - product have wrong name: " + product);
+
             log.info("Warehouse - product received: " + product);
             warehouseProducts.add(product);
+
         } catch (Exception e) {
-            throw new IllegalStateException(e);
+            throw new AmqpRejectAndDontRequeueException("Failed to process message", e);
         }
     }
 
