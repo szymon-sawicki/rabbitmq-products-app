@@ -12,10 +12,10 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/product")
 public class ProductsSummaryController {
 
-    private final ProductsService productsservice;
+  private final ProductsService productsservice;
 
-    @GetMapping("/")
-    public ProductsSummaryResponse getAll() {
-        return productsservice.getSummary();
-    }
+  @GetMapping("/")
+  public ProductsSummaryResponse getAll() {
+    return productsservice.getSummary();
+  }
 }

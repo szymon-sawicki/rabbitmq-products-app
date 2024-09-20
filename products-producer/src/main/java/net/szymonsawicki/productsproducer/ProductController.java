@@ -14,11 +14,11 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/product")
 public class ProductController {
 
-    private final ProductProducer productProducer;
+  private final ProductProducer productProducer;
 
-    @PostMapping("/{exchangeType}")
-    public String send(@RequestBody Product product, @PathVariable ExchangeType exchangeType) {
-        productProducer.send(product,exchangeType);
-        return "Exchange type: " + exchangeType.name() +". \n Product sent: " + product.toString();
-    }
+  @PostMapping("/{exchangeType}")
+  public String send(@RequestBody Product product, @PathVariable ExchangeType exchangeType) {
+    productProducer.send(product, exchangeType);
+    return "Exchange type: " + exchangeType.name() + ". \n Product sent: " + product.toString();
+  }
 }

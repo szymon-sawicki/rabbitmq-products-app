@@ -10,23 +10,23 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class ProductsService {
 
-    private final ProductConsumerCategory productConsumerCategory;
-    private final ProductConsumerFanout productConsumerFanout;
-    private final ProductConsumerTopic productConsumerTopic;
-    private final ProductConsumerHeader productConsumerHeader;
-    private final DeadLetterQueueConsumer deadLetterQueueConsumer;
+  private final ProductConsumerCategory productConsumerCategory;
+  private final ProductConsumerFanout productConsumerFanout;
+  private final ProductConsumerTopic productConsumerTopic;
+  private final ProductConsumerHeader productConsumerHeader;
+  private final DeadLetterQueueConsumer deadLetterQueueConsumer;
 
-    public ProductsSummaryResponse getSummary() {
-        return ProductsSummaryResponse.builder()
-                .bookProducts(productConsumerCategory.getBookProducts())
-                .clothingProducts(productConsumerCategory.getClothingProducts())
-                .electronicsProducts(productConsumerCategory.getElectronicsProducts())
-                .cheapProducts(productConsumerTopic.getProductsPriceLowerThan10())
-                .expensiveClothingProducts(productConsumerTopic.getClothingProductsWithPriceGreaterThan20())
-                .archivedProducts(productConsumerFanout.getArchivedProducts())
-                .warehouseProducts(productConsumerFanout.getWarehouseProducts())
-                .deadLetterQueueProducts(deadLetterQueueConsumer.getFallBackProducts())
-                .bookClothingsProducts(productConsumerHeader.getBooksClothings())
-                .build();
-    }
+  public ProductsSummaryResponse getSummary() {
+    return ProductsSummaryResponse.builder()
+        .bookProducts(productConsumerCategory.getBookProducts())
+        .clothingProducts(productConsumerCategory.getClothingProducts())
+        .electronicsProducts(productConsumerCategory.getElectronicsProducts())
+        .cheapProducts(productConsumerTopic.getProductsPriceLowerThan10())
+        .expensiveClothingProducts(productConsumerTopic.getClothingProductsWithPriceGreaterThan20())
+        .archivedProducts(productConsumerFanout.getArchivedProducts())
+        .warehouseProducts(productConsumerFanout.getWarehouseProducts())
+        .deadLetterQueueProducts(deadLetterQueueConsumer.getFallBackProducts())
+        .bookClothingsProducts(productConsumerHeader.getBooksClothings())
+        .build();
+  }
 }

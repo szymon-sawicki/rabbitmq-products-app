@@ -1,4 +1,4 @@
-package net.szymonsawicki.productsproducer.config;
+package net.szymonsawicki.productsservice.utils;
 
 import java.util.HashMap;
 import org.springframework.amqp.core.*;
@@ -6,7 +6,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
-public class RabbitMQConfig {
+public class RabbitMQTestConfig {
 
   // Queues
   @Bean
